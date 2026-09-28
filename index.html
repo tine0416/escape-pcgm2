@@ -54,8 +54,8 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .stage-indicator {
-            font-size: 0.9rem;
+        .user-badge {
+            font-size: 0.95rem;
             color: var(--accent-color);
             font-weight: 600;
         }
@@ -109,7 +109,7 @@
         }
 
         .rules-list {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-left: 20px;
             color: var(--text-dim);
         }
@@ -211,6 +211,13 @@
             padding: 20px 0;
         }
 
+        .nickname-display {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
         .record-badge {
             display: inline-block;
             background: rgba(0, 255, 102, 0.1);
@@ -253,7 +260,7 @@
 <div class="container">
     <!-- Top Header & Timer Bar -->
     <div class="top-bar" id="topBar" style="display: none;">
-        <span class="stage-indicator" id="stageIndicator">미션 진행 중</span>
+        <span class="user-badge" id="userBadge">👤 모둠원</span>
         <span class="timer-badge" id="timer">⏱️ 00:00</span>
     </div>
 
@@ -268,9 +275,16 @@
         <ul class="rules-list">
             <li>각 미션의 일차함수 문제를 해결하여 **암호 키(숫자)**를 획득하세요.</li>
             <li>막힐 때는 **[💡 힌트 보기]** 버튼을 활용하세요.</li>
-            <li>모든 암호 키를 모아 최종 서버 해제 패스워드를 조합하여 입력해야 탈출 성공입니다.</li>
-            <li>**시작하기** 버튼을 누르는 즉시 타이머가 작동합니다!</li>
+            <li>모든 암호 키를 모아 최종 서버 해제 패스워드를 조합해 입력해야 탈출 성공입니다.</li>
         </ul>
+
+        <!-- 닉네임 입력란 추가 -->
+        <div class="input-group">
+            <label for="nickname">🏷️ 모둠명 또는 이름(닉네임)을 입력하세요:</label>
+            <input type="text" id="nickname" placeholder="예: 2반 1모둠 / 홍길동" autocomplete="off">
+            <div id="errNickname" class="error-msg">⚠️ 닉네임을 입력해야 미션을 시작할 수 있습니다!</div>
+        </div>
+
         <button class="btn" onclick="startGame()">🚀 미션 시작하기</button>
     </div>
 
@@ -388,10 +402,13 @@
     <!-- 완주 성공 화면 -->
     <div id="screen-success" class="screen">
         <div class="success-card">
-            <h1>🎉 SERVER UNLOCKED!</h1>
-            <p>축하합니다! 모든 일차함수 암호를 해독하고 서버를 탈출하였습니다!</p>
-            <div class="record-badge" id="finalRecord">⏱️ 기록: 00분 00초</div>
-            <p style="color: var(--accent-color); font-weight: bold;">학습지에 풀이 과정과 소요 시간을 기록하고 교사에게 제출하세요!</p>
+            <h1>🎉 MISSION COMPLETE!</h1>
+            <div class="nickname-display" id="finalUser">👤 [닉네임] 님</div>
+            <p>축하합니다! 모든 일차함수 암호를 성공적으로 해독하고 서버를 탈출하였습니다!</p>
+            <div class="record-badge" id="finalRecord">⏱️ 탈출 성공 기록: 00분 00초</div>
+            <p style="color: var(--accent-color); font-weight: bold; margin-top: 15px;">
+                학습지에 풀이 과정과 탈출 기록을 적어두고 교사에게 보여주세요!
+            </p>
         </div>
     </div>
 </div>
@@ -399,11 +416,23 @@
 <script>
     let timerInterval;
     let secondsElapsed = 0;
+    let userName = "";
 
     function startGame() {
+        const nameInput = document.getElementById('nickname').value.trim();
+        const errNickname = document.getElementById('errNickname');
+
+        if (!nameInput) {
+            errNickname.style.display = 'block';
+            return;
+        }
+
+        errNickname.style.display = 'none';
+        userName = nameInput;
+        document.getElementById('userBadge').innerText = `👤 ${userName}`;
+        
         showScreen('screen-1');
         document.getElementById('topBar').style.display = 'flex';
-        document.getElementById('stageIndicator').innerText = '미션 1 / 4';
         
         // 타이머 시작
         secondsElapsed = 0;
@@ -432,10 +461,8 @@
         if (inputVal === correctAnswer) {
             errorMsg.style.display = 'none';
             if (step < 4) {
-                document.getElementById('stageIndicator').innerText = `미션 ${step + 1} / 4`;
                 showScreen(`screen-${step + 1}`);
             } else {
-                document.getElementById('stageIndicator').innerText = `최종 서버 해제`;
                 showScreen('screen-5');
             }
         } else {
@@ -447,15 +474,18 @@
         const inputVal = document.getElementById('ansFinal').value.trim();
         const errorMsg = document.getElementById('errFinal');
         
-        // 정답 예시: 7-2525
+        // 정답: 7-2525
         if (inputVal === '7-2525') {
             clearInterval(timerInterval);
             errorMsg.style.display = 'none';
             
             const mins = Math.floor(secondsElapsed / 60);
             const secs = secondsElapsed % 60;
-            document.getElementById('finalRecord').innerText = `⏱️ 탈출 성공 기록: ${mins}분 ${secs}초`;
             
+            document.getElementById('finalUser').innerText = `🏆 [ ${userName} ] 모둠 탈출 성공!`;
+            document.getElementById('finalRecord').innerText = `⏱️ 최종 기록: ${mins}분 ${secs}초`;
+            
+            document.getElementById('topBar').style.display = 'none';
             showScreen('screen-success');
         } else {
             errorMsg.style.display = 'block';

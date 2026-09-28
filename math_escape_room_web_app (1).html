@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중학교 2학년 수학: 일차함수 대단원 방탈출 게임</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        .cyber-glass {
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 139, 253, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 102, 255, 0.15);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(58, 134, 255, 0.6), 0 0 20px rgba(58, 134, 255, 0.4);
+        }
+
+        .glow-box {
+            box-shadow: 0 0 15px rgba(56, 139, 253, 0.25);
+        }
+
+        .glow-box-success {
+            box-shadow: 0 0 20px rgba(46, 160, 67, 0.4);
+        }
+
+        .pulse-slow {
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.01); }
+        }
+
+        .math-expr {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #58a6ff;
+            background-color: rgba(110, 118, 129, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .stage-card {
+            transition: all 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <header class="w-full border-b border-gray-800 bg-gray-900/80 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl text-blue-500"><i class="fa-solid fa-microchip"></i></span>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-wide">수학 방탈출 프로젝트</h1>
+                    <p class="text-xs text-blue-400 font-mono">중2 수학 Ⅲ. 일차함수 대단원 종합</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-900/60 text-blue-300 border border-blue-700/50">
+                    <span class="w-2 h-2 mr-1.5 bg-green-400 rounded-full animate-ping"></span>
+                    서버 상태: 오작동 (봉인됨)
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+
+        <!-- Title & Story Card -->
+        <section class="cyber-glass rounded-2xl p-6 md:p-8 mb-8 glow-box relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 text-gray-800/20 text-9xl pointer-events-none font-mono font-black">
+                y=ax+b
+            </div>
+
+            <div class="relative z-10">
+                <div class="inline-block bg-blue-500/10 border border-blue-500/30 px-3 py-1 rounded-full text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-lock mr-1"></i> 공개수업 협동 미션
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4 tracking-tight glow-text">
+                    디지털 좌표계의 암호를 해독하라!
+                </h2>
+                
+                <div class="bg-gray-900/70 rounded-xl p-4 md:p-5 border border-gray-800 text-gray-300 text-sm md:text-base leading-relaxed mb-6 space-y-2">
+                    <p class="text-yellow-400 font-semibold flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i> 긴급 경보: 일차함수 중앙 서버 시스템 셧다운!
+                    </p>
+                    <p>
+                        디지털 좌표계의 균형이 깨지면서 학교의 중앙 수학 서버가 완전히 봉인되었습니다. 
+                        수학 탐정 모둠원들과 함께 **일차함수의 뜻, 절편과 기울기, 식 구하기, 연립방정식, 네 직선으로 둘러싸인 도형의 넓이** 미션을 단계별로 해결하세요!
+                    </p>
+                    <p class="text-gray-400 text-xs md:text-sm pt-1">
+                        각 문제를 풀 때마다 정답 숫자가 **보안 키(Key)**로 변환됩니다. 4개의 키를 모아 최종 서버 봉인을 해제하세요.
+                    </p>
+                </div>
+
+                <!-- Rules / Instructions Accordion style -->
+                <div class="bg-blue-950/30 border border-blue-800/40 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-blue-300 flex items-center mb-2">
+                        <i class="fa-solid fa-circle-info mr-2"></i> 모둠 미션 수행 수칙 (게임 방법)
+                    </h3>
+                    <ul class="text-xs md:text-sm text-gray-300 space-y-1.5 pl-5 list-disc">
+                        <li><strong>함께 생각하기:</strong> 문제를 혼자만 풀지 말고, 모둠원과 풀이 전략 및 이유를 서로 말로 설명하세요.</li>
+                        <li><strong>단계별 진행:</strong> 답이 맞아야만 다음 미션으로 이동할 수 있습니다.</li>
+                        <li><strong>스캐폴딩 힌트:</strong> 해결하기 어려울 때는 <span class="text-yellow-300 font-semibold">💡 힌트 보기</span> 버튼을 활용해 생각의 물꼬를 터보세요.</li>
+                        <li><strong>최종 접속:</strong> 획득한 Key1, Key2, Key3, Key4 값을 조합하여 서버 접속 패스워드를 입력하면 탈출 성공!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2 px-1">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">미션 진행률</span>
+                <span id="progress-text" class="text-xs font-bold text-blue-400 font-mono">1 / 5 단계</span>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-2.5 p-0.5 border border-gray-700">
+                <div id="progress-bar" class="bg-gradient-to-r from-blue-600 to-indigo-500 h-1.5 rounded-full transition-all duration-500" style="width: 20%"></div>
+            </div>
+            <!-- Step Tabs -->
+            <div class="grid grid-cols-5 gap-1.5 mt-3 text-center text-xs font-medium">
+                <div id="tab-step-1" class="py-2 rounded-lg bg-blue-600 text-white font-bold border border-blue-400 shadow-sm">1: 절편&기울기</div>
+                <div id="tab-step-2" class="py-2 rounded-lg bg-gray-800 text-gray-500 border border-gray-700">2: 식 구하기</div>
+                <div id="tab-step-3" class="py-2 rounded-lg bg-gray-800 text-gray-500 border border-gray-700">3: 연립방정식</div>
+                <div id="tab-step-4" class="py-2 rounded-lg bg-gray-800 text-gray-500 border border-gray-700">4: 도형의 넓이</div>
+                <div id="tab-step-5" class="py-2 rounded-lg bg-gray-800 text-gray-500 border border-gray-700">5: 서버 해제</div>
+            </div>
+        </div>
+
+        <div id="stage-container">
+
+            <!-- QUESTION 1 -->
+            <section id="stage-1" class="stage-card cyber-glass rounded-2xl p-6 md:p-8 mb-6">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+                    <span class="px-3 py-1 bg-blue-900/80 text-blue-300 rounded-full text-xs font-bold font-mono">MISSION 01</span>
+                    <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i> 핵심 개념: 뜻, 절편, 기울기</span>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg md:text-xl font-bold text-white mb-3">
+                        [미션 1] 개념 좌표 암호 해독
+                    </h3>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                        주어진 일차함수의 식을 분석하여 <span class="math-expr">x절편</span>, <span class="math-expr">y절편</span>, <span class="math-expr">기울기</span> 값을 구하세요.
+                    </p>
+
+                    <!-- Problem Box -->
+                    <div class="bg-gray-900/90 rounded-xl p-5 border border-blue-500/40 text-center my-4 glow-box">
+                        <p class="text-xs text-gray-400 mb-2">다음 일차함수 식에서 각 요소를 찾아 계산하세요</p>
+                        <p class="text-2xl md:text-3xl font-extrabold text-blue-400 font-mono tracking-wider py-2">
+                            y = -2x + 6
+                        </p>
+                        <div class="mt-4 text-xs md:text-sm text-gray-300 bg-gray-800/60 p-3 rounded-lg text-left space-y-1">
+                            <p>• <span class="text-blue-300 font-bold">x절편</span>을 <span class="math-expr">A</span> 라 한다.</p>
+                            <p>• <span class="text-blue-300 font-bold">y절편</span>을 <span class="math-expr">B</span> 라 한다.</p>
+                            <p>• <span class="text-blue-300 font-bold">기울기</span>를 <span class="math-expr">C</span> 라 한다.</p>
+                            <p class="pt-2 font-bold text-yellow-300 text-center text-sm">
+                                ➔ 질문: <span class="math-expr">A + B + C</span> 의 값은 얼마입니까?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Form -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ans-1" placeholder="정답 입력 (숫자)" 
+                            class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-center font-mono text-lg tracking-widest placeholder:text-gray-600 placeholder:text-sm placeholder:font-sans">
+                        <button onclick="checkAnswer(1, '7')" 
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2">
+                            <span>답안 제출</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Hint Button & Content -->
+                    <div class="pt-2">
+                        <button onclick="toggleHint(1)" class="text-xs text-yellow-400/90 hover:text-yellow-300 flex items-center space-x-1 font-medium focus:outline-none">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>💡 힌트 보기 / 또래 설명 가이드</span>
+                        </button>
+                        <div id="hint-1" class="hidden mt-3 p-4 bg-yellow-950/30 border border-yellow-600/30 rounded-xl text-xs md:text-sm text-yellow-200/90 leading-relaxed">
+                            <p class="font-bold mb-1 text-yellow-400"><i class="fa-solid fa-circle-question mr-1"></i> 생각의 길잡이:</p>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>x절편 (A):</strong> <span class="math-expr">y = 0</span> 일 때의 x값입니다. <span class="math-expr">0 = -2x + 6</span> 을 풀어보세요.</li>
+                                <li><strong>y절편 (B):</strong> <span class="math-expr">x = 0</span> 일 때의 y값 (또는 상수항)입니다.</li>
+                                <li><strong>기울기 (C):</strong> x의 계수입니다. (음수 포함!)</li>
+                                <li class="text-blue-300 font-semibold pt-1">🗣️ 모둠원에게 "왜 A, B, C가 그 값이 나오는지" 직접 말로 설명해 보세요!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Msg -->
+                    <div id="feedback-1" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
+
+                    <!-- Next Button -->
+                    <div id="next-box-1" class="hidden pt-4 flex justify-end">
+                        <button onclick="goToStage(2)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center space-x-2 glow-box-success">
+                            <span>보안키 [ Key 1 : 7 ] 획득! ➔ 2단계 미션 이동</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stage-2" class="stage-card cyber-glass rounded-2xl p-6 md:p-8 mb-6 hidden">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+                    <span class="px-3 py-1 bg-blue-900/80 text-blue-300 rounded-full text-xs font-bold font-mono">MISSION 02</span>
+                    <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i> 핵심 개념: 일차함수의 식 구하기</span>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg md:text-xl font-bold text-white mb-3">
+                        [미션 2] 두 점을 지나는 직선의 식 복원
+                    </h3>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                        파손된 데이터 파일에서 두 점의 좌표가 발견되었습니다. 두 점을 모두 지나는 일차함수의 식을 완성하세요.
+                    </p>
+
+                    <!-- Problem Box -->
+                    <div class="bg-gray-900/90 rounded-xl p-5 border border-blue-500/40 text-center my-4 glow-box">
+                        <p class="text-xs text-gray-400 mb-2">두 점을 지나가는 일차함수의 식을 구하세요</p>
+                        <p class="text-xl md:text-2xl font-bold text-blue-400 font-mono tracking-wider py-1">
+                            지나는 두 점: <span class="text-yellow-300">(1, 1)</span> 과 <span class="text-yellow-300">(3, 5)</span>
+                        </p>
+                        <p class="text-sm text-gray-300 mt-2">
+                            구하고자 하는 일차함수 식: <span class="math-expr">y = ax + b</span>
+                        </p>
+                        <div class="mt-4 text-xs md:text-sm text-gray-300 bg-gray-800/60 p-3 rounded-lg text-left space-y-1">
+                            <p>• 기울기 <span class="math-expr">a</span> 와 y절편 <span class="math-expr">b</span> 의 값을 각각 정확히 계산합니다.</p>
+                            <p class="pt-1 font-bold text-yellow-300 text-center text-sm">
+                                ➔ 질문: <span class="math-expr">a × b</span> 의 값은 얼마입니까?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Form -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ans-2" placeholder="정답 입력 (숫자, 음수 가능)" 
+                            class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-center font-mono text-lg tracking-widest placeholder:text-gray-600 placeholder:text-sm placeholder:font-sans">
+                        <button onclick="checkAnswer(2, '-2')" 
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2">
+                            <span>답안 제출</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Hint Button & Content -->
+                    <div class="pt-2">
+                        <button onclick="toggleHint(2)" class="text-xs text-yellow-400/90 hover:text-yellow-300 flex items-center space-x-1 font-medium focus:outline-none">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>💡 힌트 보기 / 또래 설명 가이드</span>
+                        </button>
+                        <div id="hint-2" class="hidden mt-3 p-4 bg-yellow-950/30 border border-yellow-600/30 rounded-xl text-xs md:text-sm text-yellow-200/90 leading-relaxed">
+                            <p class="font-bold mb-1 text-yellow-400"><i class="fa-solid fa-circle-question mr-1"></i> 생각의 길잡이:</p>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>기울기 a 구하기:</strong> <span class="math-expr">a = (y의 증가량) / (x의 증가량) = (5 - 1) / (3 - 1)</span> 를 계산합니다.</li>
+                                <li><strong>y절편 b 구하기:</strong> 구한 기울기 a를 식 <span class="math-expr">y = ax + b</span> 에 넣고, 점 <span class="math-expr">(1, 1)</span> 을 대입하여 b를 구합니다.</li>
+                                <li>최종적으로 <span class="math-expr">a × b</span> 의 곱을 계산하세요! (b가 음수일 수 있습니다)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Msg -->
+                    <div id="feedback-2" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
+
+                    <!-- Next Button -->
+                    <div id="next-box-2" class="hidden pt-4 flex justify-end">
+                        <button onclick="goToStage(3)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center space-x-2 glow-box-success">
+                            <span>보안키 [ Key 2 : -2 ] 획득! ➔ 3단계 미션 이동</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stage-3" class="stage-card cyber-glass rounded-2xl p-6 md:p-8 mb-6 hidden">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+                    <span class="px-3 py-1 bg-blue-900/80 text-blue-300 rounded-full text-xs font-bold font-mono">MISSION 03</span>
+                    <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i> 핵심 개념: 일차함수와 연립일차방정식</span>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg md:text-xl font-bold text-white mb-3">
+                        [미션 3] 두 직선의 교점 좌표 해독
+                    </h3>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                        두 일차방정식의 그래프가 만나는 **교점의 좌표**는 연립일차방정식의 해와 같습니다. 교점의 위치를 찾아내세요.
+                    </p>
+
+                    <!-- Problem Box -->
+                    <div class="bg-gray-900/90 rounded-xl p-5 border border-blue-500/40 text-center my-4 glow-box">
+                        <p class="text-xs text-gray-400 mb-2">두 일차방정식의 그래프 교점 (p, q)를 구하세요</p>
+                        <div class="flex flex-col sm:flex-row justify-center items-center gap-3 my-2 font-mono text-lg font-bold text-blue-400">
+                            <span class="bg-gray-800 px-4 py-2 rounded-lg border border-gray-700">① x + y = 5</span>
+                            <span class="bg-gray-800 px-4 py-2 rounded-lg border border-gray-700">② 2x - y = 1</span>
+                        </div>
+                        <div class="mt-4 text-xs md:text-sm text-gray-300 bg-gray-800/60 p-3 rounded-lg text-left space-y-1">
+                            <p>• 두 그래프의 교점의 좌표를 <span class="math-expr">(p, q)</span> 라 합니다.</p>
+                            <p class="pt-1 font-bold text-yellow-300 text-center text-sm">
+                                ➔ 질문: <span class="math-expr">p × q</span> 의 값은 얼마입니까?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Form -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ans-3" placeholder="정답 입력 (숫자)" 
+                            class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-center font-mono text-lg tracking-widest placeholder:text-gray-600 placeholder:text-sm placeholder:font-sans">
+                        <button onclick="checkAnswer(3, '6')" 
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2">
+                            <span>답안 제출</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Hint Button & Content -->
+                    <div class="pt-2">
+                        <button onclick="toggleHint(3)" class="text-xs text-yellow-400/90 hover:text-yellow-300 flex items-center space-x-1 font-medium focus:outline-none">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>💡 힌트 보기 / 또래 설명 가이드</span>
+                        </button>
+                        <div id="hint-3" class="hidden mt-3 p-4 bg-yellow-950/30 border border-yellow-600/30 rounded-xl text-xs md:text-sm text-yellow-200/90 leading-relaxed">
+                            <p class="font-bold mb-1 text-yellow-400"><i class="fa-solid fa-circle-question mr-1"></i> 생각의 길잡이:</p>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>연립방정식 풀기:</strong> 두 식 <span class="math-expr">x + y = 5</span> 와 <span class="math-expr">2x - y = 1</span> 을 가감법(더하기)으로 정리해 보세요.</li>
+                                <li><span class="math-expr">(x + y) + (2x - y) = 5 + 1 ➔ 3x = 6</span> 이므로 <span class="math-expr">x = 2 (p값)</span>가 됩니다.</li>
+                                <li><span class="math-expr">x = 2</span> 를 첫 번째 식에 대입하면 <span class="math-expr">y = 3 (q값)</span>이 됩니다.</li>
+                                <li>교점 <span class="math-expr">(2, 3)</span> 에서 두 값 <span class="math-expr">p × q</span> 의 곱을 계산하세요!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Msg -->
+                    <div id="feedback-3" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
+
+                    <!-- Next Button -->
+                    <div id="next-box-3" class="hidden pt-4 flex justify-end">
+                        <button onclick="goToStage(4)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center space-x-2 glow-box-success">
+                            <span>보안키 [ Key 3 : 6 ] 획득! ➔ 4단계 미션 이동</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stage-4" class="stage-card cyber-glass rounded-2xl p-6 md:p-8 mb-6 hidden">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-800">
+                    <span class="px-3 py-1 bg-blue-900/80 text-blue-300 rounded-full text-xs font-bold font-mono">MISSION 04</span>
+                    <span class="text-xs text-gray-400"><i class="fa-regular fa-clock mr-1"></i> 핵심 개념: 네 직선으로 둘러싸인 도형의 넓이</span>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg md:text-xl font-bold text-white mb-3">
+                        [미션 4] 네 직선으로 둘러싸인 도형의 넓이 해독
+                    </h3>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                        좌표평면 상의 4개의 직선의 방정식을 분석하여, 이들로 둘러싸인 사각형의 넓이를 구하세요.
+                    </p>
+
+                    <!-- Problem Box -->
+                    <div class="bg-gray-900/90 rounded-xl p-5 border border-blue-500/40 text-center my-4 glow-box">
+                        <p class="text-xs text-gray-400 mb-2">다음 네 직선으로 둘러싸인 사각형의 넓이를 구하세요</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 my-3 font-mono text-base md:text-lg font-bold text-blue-400">
+                            <span class="bg-gray-800 py-2 px-3 rounded-lg border border-gray-700">x = -2</span>
+                            <span class="bg-gray-800 py-2 px-3 rounded-lg border border-gray-700">x = 3</span>
+                            <span class="bg-gray-800 py-2 px-3 rounded-lg border border-gray-700">y = -1</span>
+                            <span class="bg-gray-800 py-2 px-3 rounded-lg border border-gray-700">y = 4</span>
+                        </div>
+                        <div class="mt-4 text-xs md:text-sm text-gray-300 bg-gray-800/60 p-3 rounded-lg text-left space-y-1">
+                            <p>• <span class="math-expr">x = k</span> 는 y축에 평행한(x축에 수직인) 직선입니다.</p>
+                            <p>• <span class="math-expr">y = k</span> 는 x축에 평행한(y축에 수직인) 직선입니다.</p>
+                            <p class="pt-1 font-bold text-yellow-300 text-center text-sm">
+                                ➔ 질문: 네 직선으로 만들어지는 사각형의 넓이는 얼마입니까?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Form -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ans-4" placeholder="정답 입력 (숫자)" 
+                            class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-center font-mono text-lg tracking-widest placeholder:text-gray-600 placeholder:text-sm placeholder:font-sans">
+                        <button onclick="checkAnswer(4, '25')" 
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2">
+                            <span>답안 제출</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Hint Button & Content -->
+                    <div class="pt-2">
+                        <button onclick="toggleHint(4)" class="text-xs text-yellow-400/90 hover:text-yellow-300 flex items-center space-x-1 font-medium focus:outline-none">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>💡 힌트 보기 / 또래 설명 가이드</span>
+                        </button>
+                        <div id="hint-4" class="hidden mt-3 p-4 bg-yellow-950/30 border border-yellow-600/30 rounded-xl text-xs md:text-sm text-yellow-200/90 leading-relaxed">
+                            <p class="font-bold mb-1 text-yellow-400"><i class="fa-solid fa-circle-question mr-1"></i> 생각의 길잡이:</p>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>가로 길이 구하기:</strong> 두 직선 <span class="math-expr">x = -2</span> 와 <span class="math-expr">x = 3</span> 사이의 거리를 계산합니다. <span class="math-expr">3 - (-2) = 5</span></li>
+                                <li><strong>세로 길이 구하기:</strong> 두 직선 <span class="math-expr">y = -1</span> 과 <span class="math-expr">y = 4</span> 사이의 거리를 계산합니다. <span class="math-expr">4 - (-1) = 5</span></li>
+                                <li><strong>넓이 구하기:</strong> 직사각형의 넓이 = <span class="math-expr">가로 길이 × 세로 길이</span> 를 계산하세요!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Msg -->
+                    <div id="feedback-4" class="hidden p-4 rounded-xl text-sm font-medium transition-all"></div>
+
+                    <!-- Next Button -->
+                    <div id="next-box-4" class="hidden pt-4 flex justify-end">
+                        <button onclick="goToStage(5)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition duration-200 flex items-center space-x-2 glow-box-success">
+                            <span>보안키 [ Key 4 : 25 ] 획득! ➔ 최종 서버 접속</span>
+                            <i class="fa-solid fa-key"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stage-5" class="stage-card cyber-glass rounded-2xl p-6 md:p-8 mb-6 hidden border-2 border-blue-500/50">
+                <div class="text-center mb-6">
+                    <span class="inline-block p-3 bg-blue-900/60 text-blue-400 rounded-full text-2xl mb-2 animate-bounce">
+                        <i class="fa-solid fa-server"></i>
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-white glow-text">
+                        중앙 서버 봉인 해제 시스템
+                    </h3>
+                    <p class="text-gray-400 text-xs md:text-sm mt-1">
+                        수집한 4개의 핵심 키를 조합하여 최종 패스워드를 입력하세요.
+                    </p>
+                </div>
+
+                <!-- Key Display Box -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 font-mono">
+                    <div class="bg-gray-900/80 border border-blue-500/30 p-3 rounded-xl text-center">
+                        <span class="block text-xs text-gray-400">KEY 01</span>
+                        <span class="text-xl font-bold text-blue-400">7</span>
+                    </div>
+                    <div class="bg-gray-900/80 border border-blue-500/30 p-3 rounded-xl text-center">
+                        <span class="block text-xs text-gray-400">KEY 02</span>
+                        <span class="text-xl font-bold text-blue-400">-2</span>
+                    </div>
+                    <div class="bg-gray-900/80 border border-blue-500/30 p-3 rounded-xl text-center">
+                        <span class="block text-xs text-gray-400">KEY 03</span>
+                        <span class="text-xl font-bold text-blue-400">6</span>
+                    </div>
+                    <div class="bg-gray-900/80 border border-blue-500/30 p-3 rounded-xl text-center">
+                        <span class="block text-xs text-gray-400">KEY 04</span>
+                        <span class="text-xl font-bold text-blue-400">25</span>
+                    </div>
+                </div>
+
+                <!-- Final Password Instructions -->
+                <div class="bg-blue-950/40 border border-blue-800/50 rounded-xl p-4 mb-6 text-xs md:text-sm text-gray-300 text-center">
+                    <p class="font-bold text-yellow-300 mb-1">
+                        <i class="fa-solid fa-key mr-1"></i> 패스워드 조합 규칙
+                    </p>
+                    <p>Key1, Key2, Key3, Key4를 순서대로 이어서 입력하세요.</p>
+                    <p class="text-gray-400 text-xs mt-1">(입력 예시: <span class="font-mono text-white">7-2625</span> 또는 <span class="font-mono text-white">7-2625</span> 또는 <span class="font-mono text-white">7-2-6-25</span> 등)</p>
+                </div>
+
+                <!-- Final Input Form -->
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="ans-final" placeholder="최종 암호 입력" 
+                            class="flex-1 bg-gray-900 border border-blue-500/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-400 text-center font-mono text-xl tracking-widest placeholder:text-gray-600 placeholder:text-sm uppercase">
+                        <button onclick="checkFinalPassword()" 
+                            class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold px-8 py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg glow-box">
+                            <span>서버 접속</span>
+                            <i class="fa-solid fa-unlock"></i>
+                        </button>
+                    </div>
+
+                    <div id="feedback-final" class="hidden p-4 rounded-xl text-sm font-medium transition-all text-center"></div>
+                </div>
+            </section>
+
+            <section id="success-screen" class="cyber-glass rounded-2xl p-8 mb-6 hidden text-center border-2 border-emerald-500/60 glow-box-success pulse-slow">
+                <div class="inline-flex p-4 bg-emerald-900/50 text-emerald-400 rounded-full text-4xl mb-4 border border-emerald-500/40">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                
+                <h2 class="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight">
+                    🎉 MISSION COMPLETE! 탈출 성공! 🎉
+                </h2>
+                <p class="text-emerald-400 font-bold text-lg mb-6">
+                    디지털 좌표계 중앙 서버가 정상화되었습니다.
+                </p>
+
+                <div class="bg-gray-900/90 rounded-2xl p-6 border border-gray-800 text-left max-w-xl mx-auto mb-6 space-y-4">
+                    <h4 class="text-sm font-bold text-blue-300 uppercase tracking-wider flex items-center border-b border-gray-800 pb-2">
+                        <i class="fa-solid fa-clipboard-check mr-2"></i> 일차함수 대단원 배움 성취 인증서
+                    </h4>
+                    <div class="text-xs md:text-sm text-gray-300 space-y-2 leading-relaxed">
+                        <p>✅ <strong>개념 이해:</strong> 일차함수의 식에서 기울기와 절편의 기하학적 의미를 완벽히 파악했습니다.</p>
+                        <p>✅ <strong>식 구하기:</strong> 주어진 조건을 분석하여 함수 식 <span class="math-expr">y=ax+b</span>를 자유롭게 유도했습니다.</p>
+                        <p>✅ <strong>방정식과의 관계:</strong> 일차함수의 그래프와 연립방정식 해 사이의 연결고리를 정복했습니다.</p>
+                        <p>✅ <strong>도형의 넓이 활용:</strong> 네 직선의 방정식으로 나타나는 영역의 가로·세로 길이를 파악하여 넓이를 구했습니다.</p>
+                        <p>✅ <strong>협동 역량:</strong> 모둠원과 풀이 전략을 설명하고 도우며 성공적인 방탈출을 이뤄냈습니다!</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-blue-950/30 rounded-xl border border-blue-800/40 text-xs md:text-sm text-blue-200 max-w-xl mx-auto italic mb-6">
+                    "수학은 단순한 계산이 아니라, 세상을 연결하는 관계의 언어입니다. 훌륭히 미션을 수행한 모둠원 모두 축하합니다!"
+                </div>
+
+                <button onclick="resetGame()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold px-6 py-2.5 rounded-xl text-xs transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> 다시 도전하기 (처음으로)
+                </button>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-gray-800 py-4 text-center text-xs text-gray-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>중학교 2학년 수학 공개수업용 방탈출 웹 애플리케이션 | Ⅲ. 일차함수 대단원 종합 복습</p>
+        </div>
+    </footer>
+
+    <script>
+        // State variables
+        let currentStage = 1;
+        const solvedStages = { 1: false, 2: false, 3: false, 4: false, 5: false };
+
+        // Helper: Toggle Hint visibility
+        function toggleHint(stageNum) {
+            const hintBox = document.getElementById(`hint-${stageNum}`);
+            if (hintBox) {
+                hintBox.classList.toggle('hidden');
+            }
+        }
+
+        // Helper: Check Answer for Stages 1 to 4
+        function checkAnswer(stageNum, expectedAnswer) {
+            const inputEl = document.getElementById(`ans-${stageNum}`);
+            const feedbackEl = document.getElementById(`feedback-${stageNum}`);
+            const nextBoxEl = document.getElementById(`next-box-${stageNum}`);
+            
+            if (!inputEl) return;
+
+            const userAns = inputEl.value.trim().replace(/\s+/g, '');
+
+            if (userAns === expectedAnswer) {
+                // Correct
+                solvedStages[stageNum] = true;
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-emerald-950/60 border border-emerald-500/50 text-emerald-200 flex items-center space-x-2";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> <span>정답입니다! 암호 해독 성공! (모둠원과 풀이 과정을 확인한 뒤 다음 단계로 이동하세요.)</span>`;
+                feedbackEl.classList.remove('hidden');
+                
+                if (nextBoxEl) {
+                    nextBoxEl.classList.remove('hidden');
+                }
+
+                // Trigger mini confetti
+                if (window.confetti) {
+                    confetti({
+                        particleCount: 40,
+                        spread: 60,
+                        origin: { y: 0.7 }
+                    });
+                }
+            } else {
+                // Incorrect
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-rose-950/60 border border-rose-500/50 text-rose-200 flex items-center space-x-2";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i> <span>정답이 아닙니다. 모둠원과 상의해보거나 [💡 힌트 보기]를 활용해보세요!</span>`;
+                feedbackEl.classList.remove('hidden');
+            }
+        }
+
+        // Stage Navigation
+        function goToStage(targetStage) {
+            // Prevent skipping if previous not solved
+            if (targetStage > 1 && !solvedStages[targetStage - 1]) {
+                alert("이전 미션을 먼저 해결해야 다음 단계로 넘어갈 수 있습니다!");
+                return;
+            }
+
+            currentStage = targetStage;
+
+            // Hide all stage sections
+            for (let i = 1; i <= 5; i++) {
+                const stageSec = document.getElementById(`stage-${i}`);
+                if (stageSec) stageSec.classList.add('hidden');
+            }
+
+            // Show target stage
+            const targetSec = document.getElementById(`stage-${targetStage}`);
+            if (targetSec) targetSec.classList.remove('hidden');
+
+            // Update Progress Bar & Tabs
+            updateProgressUI(targetStage);
+
+            // Scroll smoothly to top of container
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+        }
+
+        // Update Progress Bar UI
+        function updateProgressUI(stage) {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+
+            const percent = (stage / 5) * 100;
+            if (progressBar) progressBar.style.width = `${percent}%`;
+            if (progressText) progressText.textContent = `${stage} / 5 단계`;
+
+            // Update Tab styles
+            for (let i = 1; i <= 5; i++) {
+                const tab = document.getElementById(`tab-step-${i}`);
+                if (!tab) continue;
+
+                if (i === stage) {
+                    tab.className = "py-2 rounded-lg bg-blue-600 text-white font-bold border border-blue-400 shadow-sm";
+                } else if (solvedStages[i]) {
+                    tab.className = "py-2 rounded-lg bg-emerald-900/50 text-emerald-300 font-medium border border-emerald-700/50 cursor-pointer";
+                    tab.onclick = () => goToStage(i);
+                } else {
+                    tab.className = "py-2 rounded-lg bg-gray-800 text-gray-500 border border-gray-700";
+                    tab.onclick = null;
+                }
+            }
+        }
+
+        // Final Password Validation
+        function checkFinalPassword() {
+            const inputEl = document.getElementById('ans-final');
+            const feedbackEl = document.getElementById('feedback-final');
+            
+            if (!inputEl) return;
+
+            // Clean input
+            const rawVal = inputEl.value.trim().replace(/\s+/g, '');
+            
+            // Acceptable password formats for 7, -2, 6, 25
+            const validPasswords = ["7-2625", "7-2-6-25", "7,-2,6,25", "7-2625"];
+
+            if (validPasswords.includes(rawVal)) {
+                // SUCCESS!
+                solvedStages[5] = true;
+                document.getElementById('stage-5').classList.add('hidden');
+                document.getElementById('success-screen').classList.remove('hidden');
+
+                // Full screen Confetti explosion
+                if (window.confetti) {
+                    var duration = 3 * 1000;
+                    var end = Date.now() + duration;
+
+                    (function frame() {
+                        confetti({
+                            particleCount: 5,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 }
+                        });
+                        confetti({
+                            particleCount: 5,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 }
+                        });
+
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+                }
+
+                // Update Progress to 100%
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                if (progressBar) progressBar.style.width = '100%';
+                if (progressText) progressText.textContent = '5 / 5 단계 (탈출 완료!)';
+
+            } else {
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-rose-950/60 border border-rose-500/50 text-rose-200 flex items-center justify-center space-x-2";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i> <span>암호 불일치! Key1(7), Key2(-2), Key3(6), Key4(25)를 순서대로 확인하여 다시 입력하세요. (예: 7-2625)</span>`;
+                feedbackEl.classList.remove('hidden');
+            }
+        }
+
+        // Reset Game
+        function resetGame() {
+            location.reload();
+        }
+
+        // Allow 'Enter' key submission on inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            const answers = { 1: '7', 2: '-2', 3: '6', 4: '25' };
+            [1, 2, 3, 4].forEach(num => {
+                const input = document.getElementById(`ans-${num}`);
+                if (input) {
+                    input.addEventListener('keyup', (e) => {
+                        if (e.key === 'Enter') {
+                            checkAnswer(num, answers[num]);
+                        }
+                    });
+                }
+            });
+
+            const finalInput = document.getElementById('ans-final');
+            if (finalInput) {
+                finalInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') {
+                        checkFinalPassword();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

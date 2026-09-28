@@ -225,7 +225,7 @@
             padding: 20px 0;
         }
 
-        .nickname-display {
+        .student-id-display {
             font-size: 1.5rem;
             color: var(--accent-color);
             font-weight: bold;
@@ -285,7 +285,7 @@
         <div class="story-box">
             <div class="story-title">🚨 [긴급 임무 명령] 중앙 통제실 비상령</div>
             미래의 메타버스 데이터베이스 중앙 서버가 오작동하여 세계의 모든 일차함수 좌표계가 락(Lock)에 걸렸습니다!<br><br>
-            이대로 방치하면 모든 위치 정보 데이터가 소멸합니다. 탐사대원 여러분, 모둠원들과 힘을 합쳐 4개의 보안 암호 키(Key)를 해독하고 최종 중앙 서버를 정상화하여 탈출하세요!
+            이대로 방치하면 모든 위치 정보 데이터가 소멸합니다. 탐사대원 여러분, 4개의 보안 암호 키(Key)를 해독하고 최종 중앙 서버를 정상화하여 탈출하세요!
         </div>
 
         <h2>🎮 미션 진행 방법</h2>
@@ -296,9 +296,9 @@
         </ul>
 
         <div class="input-group">
-            <label for="nickname">🏷️ 탐사대원 닉네임 (학번/이름 또는 모둠명):</label>
-            <input type="text" id="nickname" placeholder="예: 2학년 3반 1모둠" autocomplete="off">
-            <div id="errNickname" class="error-msg">⚠️ 닉네임을 입력해야 미션을 시작할 수 있습니다!</div>
+            <label for="studentId">🏷️ 탐사대원 학번:</label>
+            <input type="text" id="studentId" placeholder="예: 10302 (1학년 3반 2번)" autocomplete="off">
+            <div id="errStudentId" class="error-msg">⚠️ 학번을 입력해야 미션을 시작할 수 있습니다!</div>
         </div>
 
         <button class="btn" onclick="startGame()">🚀 메타버스 데이터베이스 접속 (미션 시작)</button>
@@ -448,7 +448,7 @@
     <div id="screen-success" class="screen">
         <div class="success-card">
             <h1>🎉 SYSTEM RESTORED!</h1>
-            <div class="nickname-display" id="finalUser">🏆 [ 탐사대원 ]</div>
+            <div class="student-id-display" id="finalUser">🏆 [ 학번: - ]</div>
             
             <div class="story-box" style="text-align: left; margin-top: 15px;">
                 <div class="story-title">✨ 미션 성공 에필로그</div>
@@ -467,20 +467,20 @@
 <script>
     let timerInterval;
     let secondsElapsed = 0;
-    let userName = "";
+    let studentIdVal = "";
 
     function startGame() {
-        const nameInput = document.getElementById('nickname').value.trim();
-        const errNickname = document.getElementById('errNickname');
+        const idInput = document.getElementById('studentId').value.trim();
+        const errStudentId = document.getElementById('errStudentId');
 
-        if (!nameInput) {
-            errNickname.style.display = 'block';
+        if (!idInput) {
+            errStudentId.style.display = 'block';
             return;
         }
 
-        errNickname.style.display = 'none';
-        userName = nameInput;
-        document.getElementById('userBadge').innerText = `👤 ${userName}`;
+        errStudentId.style.display = 'none';
+        studentIdVal = idInput;
+        document.getElementById('userBadge').innerText = `👤 학번: ${studentIdVal}`;
         
         showScreen('screen-1');
         document.getElementById('topBar').style.display = 'flex';
@@ -537,7 +537,7 @@
             const mins = Math.floor(secondsElapsed / 60);
             const secs = secondsElapsed % 60;
             
-            document.getElementById('finalUser').innerText = `🏆 [ ${userName} ] 메타버스 탈출 성공!`;
+            document.getElementById('finalUser').innerText = `🏆 [ 학번: ${studentIdVal} ] 메타버스 탈출 성공!`;
             document.getElementById('finalRecord').innerText = `⏱️ 최종 탈출 기록: ${mins}분 ${secs}초`;
             
             document.getElementById('topBar').style.display = 'none';

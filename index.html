@@ -88,7 +88,7 @@
         }
 
         h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 15px;
             color: var(--text-color);
         }
@@ -100,12 +100,14 @@
         }
 
         .story-box {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border-left: 4px solid var(--accent-color);
             padding: 15px;
             border-radius: 4px;
             margin-bottom: 20px;
             font-size: 0.95rem;
+            line-height: 1.6;
+            color: #b8c7dc;
         }
 
         .rules-list {
@@ -126,6 +128,7 @@
             padding: 20px;
             margin-bottom: 20px;
             font-weight: 500;
+            line-height: 1.6;
         }
 
         .input-group {
@@ -196,6 +199,7 @@
             border-radius: 8px;
             color: #ffea85;
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .error-msg {
@@ -260,39 +264,42 @@
 <div class="container">
     <!-- Top Header & Timer Bar -->
     <div class="top-bar" id="topBar" style="display: none;">
-        <span class="user-badge" id="userBadge">👤 모둠원</span>
+        <span class="user-badge" id="userBadge">👤 탐사대원</span>
         <span class="timer-badge" id="timer">⏱️ 00:00</span>
     </div>
 
-    <!-- 0. 시작 화면 -->
+    <!-- 0. 메인 시작 및 오프닝 스토리 화면 -->
     <div id="screen-intro" class="screen active">
         <h1>🌌 디지털 좌표계의 암호를 해독하라!</h1>
         <div class="story-box">
-            <strong>경고:</strong> 일차함수 중앙 컨트롤 서버의 좌표계가 봉인되었습니다! 
-            모둠원들과 협력하여 4개의 암호 키(Key)를 해독하고 서버를 정상화하여 탈출하세요.
+            🚨 <strong>긴급 비상 경보!</strong><br>
+            인공지능 중앙 컨트롤 서버 '알파-메트릭스'의 일차함수 좌표계 시스템이 원인 불명의 악성 코드에 의해 봉인되었습니다!<br><br>
+            지금 서버를 복구하지 않으면 학교의 모든 시스템이 마비됩니다. 탐사대원 여러분, 모둠원들과 힘을 합쳐 봉인된 4개의 보안 격벽 암호 키(Key)를 해독하고 최종 탈출 서버를 정상화하세요!
         </div>
-        <h2>🎮 미션 진행 방법</h2>
+        <h2>🎮 미션 진행 규칙</h2>
         <ul class="rules-list">
-            <li>각 미션의 일차함수 문제를 해결하여 **암호 키(숫자)**를 획득하세요.</li>
-            <li>막힐 때는 **[💡 힌트 보기]** 버튼을 활용하세요.</li>
-            <li>모든 암호 키를 모아 최종 서버 해제 패스워드를 조합해 입력해야 탈출 성공입니다.</li>
+            <li>단계별 스토리와 수학 문제를 해결하여 **암호 키(Key 숫자)**를 획득합니다.</li>
+            <li>풀이가 막힐 때는 **[💡 힌트 보기]** 버튼을 활용하세요.</li>
+            <li>모든 정답(Key)을 학습지에 적은 뒤 최종 메인 서버에 조합하여 입력하면 탈출 성공입니다.</li>
         </ul>
 
-        <!-- 닉네임 입력란 추가 -->
+        <!-- 닉네임 입력란 -->
         <div class="input-group">
-            <label for="nickname">🏷️ 모둠명 또는 이름(닉네임)을 입력하세요:</label>
-            <input type="text" id="nickname" placeholder="예: 2반 1모둠 / 홍길동" autocomplete="off">
-            <div id="errNickname" class="error-msg">⚠️ 닉네임을 입력해야 미션을 시작할 수 있습니다!</div>
+            <label for="nickname">🏷️ 탐사 대원 이름 또는 모둠명을 입력하세요:</label>
+            <input type="text" id="nickname" placeholder="예: 2학년 3반 1모둠 / 홍길동" autocomplete="off">
+            <div id="errNickname" class="error-msg">⚠️ 닉네임을 입력해야 메인 서버 해독을 시작할 수 있습니다!</div>
         </div>
 
-        <button class="btn" onclick="startGame()">🚀 미션 시작하기</button>
+        <button class="btn" onclick="startGame()">🚀 미션 시작 및 서버 접속</button>
     </div>
 
-    <!-- 1단계 미션 -->
+    <!-- 1단계 미션 스토리 및 문제 -->
     <div id="screen-1" class="screen">
-        <h2>MISSION 1: 절편과 기울기 해독</h2>
+        <h2>🔒 제 1격벽: 기울기와 절편 센서 복구</h2>
         <div class="story-box">
-            서버 첫 번째 보안 장치입니다. 함수 식에서 기울기와 절편의 의미를 해독하세요.
+            📡 <strong>스토리:</strong><br>
+            첫 번째 보안 격벽에 다다랐습니다! 중앙 서버로 향하는 통로의 기울기와 시작 위치 센서가 뒤얽혀 문이 잠겼습니다.<br>
+            일차함수 데이터 패킷 $y = 3x + 4$의 기울기와 $y$절편을 정확히 찾아 센서를 다시 동기화하세요.
         </div>
         <div class="question-box">
             일차함수 $y = 3x + 4$ 의 기울기를 $a$, $y$절편을 $b$라 할 때,<br>
@@ -301,20 +308,22 @@
         <div class="input-group">
             <label for="ans1">정답 (Key 1 숫자만 입력):</label>
             <input type="text" id="ans1" placeholder="예: 5" autocomplete="off">
-            <div id="err1" class="error-msg">❌ 틀렸습니다. 다시 계산해보세요!</div>
+            <div id="err1" class="error-msg">❌ 센서 동기화 실패! $x$ 앞의 숫자와 상수항을 다시 확인하세요.</div>
         </div>
-        <button class="btn" onclick="checkAnswer(1, '7')">정답 확인</button>
+        <button class="btn" onclick="checkAnswer(1, '7')">정답 확인 및 격벽 해제</button>
         <button class="btn btn-hint" onclick="toggleHint(1)">💡 힌트 보기</button>
         <div id="hint1" class="hint-box">
             일차함수 $y = ax + b$ 에서 $x$ 앞의 계수 $a$가 기울기, 뒤의 상수항 $b$가 $y$절편입니다.
         </div>
     </div>
 
-    <!-- 2단계 미션 -->
+    <!-- 2단계 미션 스토리 및 문제 -->
     <div id="screen-2" class="screen">
-        <h2>MISSION 2: 일차함수의 식 복원</h2>
+        <h2>🔒 제 2격벽: 소실된 함수 식 복원</h2>
         <div class="story-box">
-            손상된 좌표 데이터에서 두 점을 이용해 원래의 일차함수 식을 복원하세요.
+            🛰️ <strong>스토리:</strong><br>
+            두 번째 격벽에 진입했습니다. 메트릭스 데이터가 파손되어 함수 식의 일부가 소실되었습니다!<br>
+            남아있는 두 개의 좌표 데이터 점 $(0, 2)$와 $(3, -4)$를 연결하여 원래의 일차함수 식 $y = ax + b$를 복원해 내야 합니다.
         </div>
         <div class="question-box">
             두 점 $(0, 2)$와 $(3, -4)$를 지나는 일차함수의 식을 $y = ax + b$라 할 때,<br>
@@ -323,9 +332,9 @@
         <div class="input-group">
             <label for="ans2">정답 (Key 2 숫자만 입력):</label>
             <input type="text" id="ans2" placeholder="예: -1" autocomplete="off">
-            <div id="err2" class="error-msg">❌ 틀렸습니다. 기울기와 y절편을 다시 확인해보세요.</div>
+            <div id="err2" class="error-msg">❌ 함수 식 복원 실패! 기울기 계산식을 다시 점검해 보세요.</div>
         </div>
-        <button class="btn" onclick="checkAnswer(2, '-2')">정답 확인</button>
+        <button class="btn" onclick="checkAnswer(2, '-2')">정답 확인 및 격벽 해제</button>
         <button class="btn btn-hint" onclick="toggleHint(2)">💡 힌트 보기</button>
         <div id="hint2" class="hint-box">
             1) 점 $(0, 2)$를 지나므로 $y$절편 $b = 2$ 입니다.<br>
@@ -333,11 +342,13 @@
         </div>
     </div>
 
-    <!-- 3단계 미션 -->
+    <!-- 3단계 미션 스토리 및 문제 -->
     <div id="screen-3" class="screen">
-        <h2>MISSION 3: 두 직선의 교점 좌표</h2>
+        <h2>🔒 제 3격벽: 데이터 교점 추적</h2>
         <div class="story-box">
-            두 일차함수 그래프가 교차하는 위치가 바로 세 번째 암호의 열쇠입니다.
+            ⚔️ <strong>스토리:</strong><br>
+            세 번째 격벽 앞입니다! 두 개의 독립된 데이터 신호 직선이 가로막고 있습니다.<br>
+            두 데이터 신호 $x + y = 5$와 $x - y = 1$이 서로 만나는 **교점의 위치 좌표**를 추적해야만 방어막이 해제됩니다.
         </div>
         <div class="question-box">
             연립방정식 $\begin{cases} x + y = 5 \\ x - y = 1 \end{cases}$ 의 해 $(x, y)$에 대해<br>
@@ -346,20 +357,22 @@
         <div class="input-group">
             <label for="ans3">정답 (Key 3 숫자만 입력):</label>
             <input type="text" id="ans3" placeholder="예: 4" autocomplete="off">
-            <div id="err3" class="error-msg">❌ 틀렸습니다. 연립방정식의 해를 구해보세요.</div>
+            <div id="err3" class="error-msg">❌ 교점 추적 실패! 두 연립방정식을 다시 풀어 교점을 구하세요.</div>
         </div>
-        <button class="btn" onclick="checkAnswer(3, '5')">정답 확인</button>
+        <button class="btn" onclick="checkAnswer(3, '5')">정답 확인 및 격벽 해제</button>
         <button class="btn btn-hint" onclick="toggleHint(3)">💡 힌트 보기</button>
         <div id="hint3" class="hint-box">
             두 식을 더하면 $2x = 6 \implies x = 3$ 이고, $y = 2$ 입니다. 따라서 $x + y = 5$ 입니다.
         </div>
     </div>
 
-    <!-- 4단계 미션 -->
+    <!-- 4단계 미션 스토리 및 문제 -->
     <div id="screen-4" class="screen">
-        <h2>MISSION 4: 도형의 넓이 해독</h2>
+        <h2>🔒 제 4격벽: 방어 영역의 넓이 측정</h2>
         <div class="story-box">
-            네 개의 직선으로 에워싸인 방어 영역의 넓이를 구하여 마지막 암호를 획득하세요.
+            🛡️ <strong>스토리:</strong><br>
+            마지막 관문입니다! 방어벽 시스템이 $x = -2$, $x = 3$, $y = -1$, $y = 4$ 라는 4개의 가상 직선 경계를 형성하여 중앙 제어실을 둘러싸고 있습니다.<br>
+            이 4개의 직선으로 둘러싸인 구역의 넓이를 정확히 산출해야만 최종 제어반 접근 권한이 부여됩니다.
         </div>
         <div class="question-box">
             네 직선 $x = -2$, $x = 3$, $y = -1$, $y = 4$ 로 둘러싸인<br>
@@ -368,22 +381,24 @@
         <div class="input-group">
             <label for="ans4">정답 (Key 4 숫자만 입력):</label>
             <input type="text" id="ans4" placeholder="예: 12" autocomplete="off">
-            <div id="err4" class="error-msg">❌ 틀렸습니다. 가로와 세로의 길이를 다시 계산해보세요.</div>
+            <div id="err4" class="error-msg">❌ 넓이 산출 실패! 가로와 세로의 칸 수를 모눈종이에 그려 정확히 세어보세요.</div>
         </div>
-        <button class="btn" onclick="checkAnswer(4, '25')">정답 확인</button>
+        <button class="btn" onclick="checkAnswer(4, '25')">정답 확인 및 제어반 진입</button>
         <button class="btn btn-hint" onclick="toggleHint(4)">💡 힌트 보기</button>
         <div id="hint4" class="hint-box">
-            1) 가로 길이: $x = 3$ 과 $x = -2$ 사이의 거리는 $3 - (-2) = 5$<br>
-            2) 세로 길이: $y = 4$ 와 $y = -1$ 사이의 거리는 $4 - (-1) = 5$<br>
-            3) 넓이 = $5 \times 5 = 25$
+            1) 가로 길이: $x = 3$ 과 $x = -2$ 사이의 거리 $= 3 - (-2) = 5$<br>
+            2) 세로 길이: $y = 4$ 와 $y = -1$ 사이의 거리 $= 4 - (-1) = 5$<br>
+            3) 직사각형 넓이 $= 5 \times 5 = 25$
         </div>
     </div>
 
-    <!-- 5단계: 최종 서버 해제 -->
+    <!-- 5단계: 최종 서버 해제 스토리 및 패스워드 입력 -->
     <div id="screen-5" class="screen">
-        <h2>🔒 최종 서버 접속 패스워드 입력</h2>
+        <h2>💻 메인 컨트롤 서버 접속</h2>
         <div class="story-box">
-            획득한 4개의 Key(정답)를 순서대로 연결하여 접속 패스워드를 완성하세요!
+            🔓 <strong>스토리:</strong><br>
+            축하합니다! 중앙 컨트롤 서버 '알파-메트릭스' 앞까지 도달했습니다.<br>
+            제 1~4 격벽에서 해독한 4개의 정답 Key들을 순서대로 연쇄 조합하여 메인 서버 복구 패스워드를 입력하세요!
         </div>
         <div class="key-list">
             <div class="key-item"><div class="label">Key 1</div><div class="val">7</div></div>
@@ -394,20 +409,20 @@
         <div class="input-group">
             <label for="ansFinal">최종 패스워드 (Key 1~4를 붙여서 입력):</label>
             <input type="text" id="ansFinal" placeholder="예: 7-2525" autocomplete="off">
-            <div id="errFinal" class="error-msg">❌ 패스워드가 올바르지 않습니다. (예: 7-2525)</div>
+            <div id="errFinal" class="error-msg">❌ 패스워드 오류! Key 1, 2, 3, 4의 정답을 차례대로 붙여 입력하세요. (예: 7-2525)</div>
         </div>
-        <button class="btn" onclick="checkFinalAnswer()">🔓 서버 해제 및 탈출하기</button>
+        <button class="btn" onclick="checkFinalAnswer()">🔓 서버 해제 및 시스템 복구</button>
     </div>
 
-    <!-- 완주 성공 화면 -->
+    <!-- 완주 및 탈출 성공 화면 -->
     <div id="screen-success" class="screen">
         <div class="success-card">
-            <h1>🎉 MISSION COMPLETE!</h1>
-            <div class="nickname-display" id="finalUser">👤 [닉네임] 님</div>
-            <p>축하합니다! 모든 일차함수 암호를 성공적으로 해독하고 서버를 탈출하였습니다!</p>
-            <div class="record-badge" id="finalRecord">⏱️ 탈출 성공 기록: 00분 00초</div>
+            <h1>🎉 SERVER UNLOCKED!</h1>
+            <div class="nickname-display" id="finalUser">🏆 [ 탐사대원 ]</div>
+            <p>모든 일차함수 암호를 완벽하게 해독하여 '알파-메트릭스' 서버를 복구하고 방탈출에 성공하였습니다!</p>
+            <div class="record-badge" id="finalRecord">⏱️ 최종 탈출 기록: 00분 00초</div>
             <p style="color: var(--accent-color); font-weight: bold; margin-top: 15px;">
-                학습지에 풀이 과정과 탈출 기록을 적어두고 교사에게 보여주세요!
+                학습지에 탈출 시간 및 풀이 과정을 정리하고 선생님께 제출해 주세요!
             </p>
         </div>
     </div>
@@ -434,7 +449,7 @@
         showScreen('screen-1');
         document.getElementById('topBar').style.display = 'flex';
         
-        // 타이머 시작
+        // 타이머 작동 시작
         secondsElapsed = 0;
         timerInterval = setInterval(() => {
             secondsElapsed++;
@@ -474,7 +489,7 @@
         const inputVal = document.getElementById('ansFinal').value.trim();
         const errorMsg = document.getElementById('errFinal');
         
-        // 정답: 7-2525
+        // 최종 접속 패스워드 정답: 7-2525
         if (inputVal === '7-2525') {
             clearInterval(timerInterval);
             errorMsg.style.display = 'none';
@@ -482,8 +497,8 @@
             const mins = Math.floor(secondsElapsed / 60);
             const secs = secondsElapsed % 60;
             
-            document.getElementById('finalUser').innerText = `🏆 [ ${userName} ] 모둠 탈출 성공!`;
-            document.getElementById('finalRecord').innerText = `⏱️ 최종 기록: ${mins}분 ${secs}초`;
+            document.getElementById('finalUser').innerText = `🏆 [ ${userName} ] 탈출 성공!`;
+            document.getElementById('finalRecord').innerText = `⏱️ 최종 탈출 기록: ${mins}분 ${secs}초`;
             
             document.getElementById('topBar').style.display = 'none';
             showScreen('screen-success');

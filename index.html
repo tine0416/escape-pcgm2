@@ -303,16 +303,17 @@
             <div id="errStudentId" class="error-msg">⚠️ 학번을 입력해야 미션을 시작할 수 있습니다!</div>
         </div>
 
-        <button class="btn" onclick="startGame()">🚀 수학 연구실 입장 (미션 시작)</button>
+        <button class="btn" onclick="startGame()">🚀 수학자의 연구실 입장 (미션 시작)</button>
     </div>
 
     <!-- 1단계 미션 -->
     <div id="screen-1" class="screen">
-        <h2>MISSION 1 : 첫 번째 보안 장치 [기울기, y절편, x절편]</h2>
+        <h2>MISSION 1 : 첫 번째, 쪽지 속 암호 [기울기, y절편, x절편]</h2>
         
         <div class="story-box">
             <div class="story-title">📡 시스템 메시지</div>
-            "첫 번째 문제에 도착했습니다. 문을 잠그고 있는 일차함수 데이터의 <strong>기울기, y절편, x절편</strong>을 모두 정확히 해독해야 첫 번째 암호 키를 얻을 수 있습니다."
+            책상 위에 쪽지가 있다.<br>
+            "내가 연구하던 데이터를 일차함수 식으로 만들었다. 자네라면 <strong>기울기, y절편, x절편</strong>을 찾을 수 있겠지?"
         </div>
 
         <div class="question-box">
@@ -321,9 +322,9 @@
         </div>
 
         <div class="input-group">
-            <label for="ans1">🔑 첫 번째 암호 키 (Key 1 숫자만 입력):</label>
+            <label for="ans1">🔑 쪽지 속 암호 (Key 1 숫자만 입력):</label>
             <input type="text" id="ans1" placeholder="예: 5" autocomplete="off">
-            <div id="err1" class="error-msg">❌ 보안 키가 일치하지 않습니다. 다시 계산해보세요!</div>
+            <div id="err1" class="error-msg">❌ 암호가 일치하지 않습니다. 다시 계산해보세요!</div>
         </div>
 
         <button class="btn" onclick="checkAnswer(1, '7', '첫 번째 암호 키 [Key 1 = 7]')">정답 입력 & 다음 문으로</button>
@@ -337,20 +338,20 @@
 
     <!-- 2단계 미션 -->
     <div id="screen-2" class="screen">
-        <h2>MISSION 2 : 두 번째 보안 장치 [손상된 좌표 복원]</h2>
+        <h2>MISSION 2 : 두 번째, 금고 보안 장치 [손상된 좌표 복원]</h2>
         
         <div class="story-box">
-            <div class="story-title">📡 시스템 메시지</div>
-            "경고! 좌표 데이터의 일부가 손상되었습니다. 남아있는 두 좌표점 (3, -5)와 (1, -1)을 연결하는 원래의 일차함수 식을 복원하세요."
+            <div class="story-title">📡 책상 아래에 금고가 있고, 보안 장치가 걸려있다.</div>
+            "좌표평면에 남아있는 두 점 (3, -5)와 (1, -1)을 연결하는 원래의 일차함수 식을 복원하세요."
         </div>
 
         <div class="question-box">
             두 점 (3, -5)와 (1, -1)을 지나는 일차함수의 식을 y = ax + b라 할 때,<br>
-            <strong>a + b 의 값 (Key 2)</strong>을 구하시오.
+            <strong>a × b 의 값 (Key 2)</strong>을 구하시오.
         </div>
 
         <div class="input-group">
-            <label for="ans2">🔑 두 번째 암호 키 (Key 2 숫자만 입력):</label>
+            <label for="ans2">🔑 보안 장치 암호 (Key 2 숫자만 입력):</label>
             <input type="text" id="ans2" placeholder="예: -1" autocomplete="off">
             <div id="err2" class="error-msg">❌ 손상된 데이터 복원 실패! 기울기와 y절편을 다시 확인하세요.</div>
         </div>
@@ -365,16 +366,17 @@
 
     <!-- 3단계 미션 -->
     <div id="screen-3" class="screen">
-        <h2>MISSION 3 : 세 번째 보안 장치 [교차 지점 탐색]</h2>
+        <h2>MISSION 3 : 세 번째, 연구실 속 다른 방</h2>
         
         <div class="story-box">
-            <div class="story-title">📡 시스템 메시지</div>
-            "연구실 뒤쪽 작은 방으로 진입했습니다. 두 개의 방정식의 신호가 교차하는 위치를 찾아 세 번째 키를 해독하세요."
+            <div class="story-title">📡 금고 안의 열쇠를 찾았다. 뒤쪽 문을 열어야겠다.</div>
+            연구실 뒤쪽 작은방으로 진입했습니다. 벽에 글이 쓰여있네? <br>
+            "두 개의 방정식의 신호가 교차하는 위치를 찾아 세 번째 키를 해독하세요."
         </div>
 
         <div class="question-box">
-            연립방정식 x + y = 5 ,  x - y = 1 의 해 (x, y)에 대해<br>
-            <strong>x + y 의 값 (Key 3)</strong>을 구하시오.
+            연립방정식 x + y = 5 ,  x - y = 1 의 해 (a, b)에 대해<br>
+            <strong>a + b 의 값 (Key 3)</strong>을 구하시오.
         </div>
 
         <div class="input-group">
@@ -387,17 +389,17 @@
         <button class="btn btn-hint" onclick="toggleHint(3)">💡 힌트 보기</button>
         <div id="hint3" class="hint-box">
             연립방정식의 해가 곧 두 일차함수 그래프의 교점입니다.<br>
-            두 식을 더하면 2x = 6 에서 x = 3 이고, y = 2 가 나옵니다.
+            가감법을 이용하여 두 식을 더하면 2x = 6 에서 x = 3 이고, y = 2 가 나옵니다.
         </div>
     </div>
 
     <!-- 4단계 미션 -->
     <div id="screen-4" class="screen">
-        <h2>MISSION 4 : 네 번째 보안 장치 [방어 구역의 넓이]</h2>
+        <h2>MISSION 4 : 네 번째, 구역의 넓이를 구하라 </h2>
         
         <div class="story-box">
-            <div class="story-title">📡 시스템 메시지</div>
-            "연구원의 연구 노트가 있어! 네 개의 직선으로 둘러싸인 도형의 넓이를 계산하는 중이었구나?"
+            <div class="story-title">📡 사람의 목소리가 들린다. </div>
+            "여기까지 오다니, 훌륭하군. 이제 마지막 문제다."
         </div>
 
         <div class="question-box">
@@ -416,7 +418,7 @@
         <div id="hint4" class="hint-box">
             1) 가로 길이: x = 3 에서 x = -2 까지의 거리 = 3 - (-2) = 5<br>
             2) 세로 길이: y = 4 에서 y = -1 까지의 거리 = 4 - (-1) = 5<br>
-            3) 직사각형 넓이 = 5 × 5 = 25
+            3) 직사각형 넓이 = 가로 길이 × 세로 길이
         </div>
     </div>
 
@@ -430,15 +432,15 @@
         </div>
 
         <div class="key-list">
-            <div class="key-item"><div class="label">Key 1</div><div class="val">7</div></div>
-            <div class="key-item"><div class="label">Key 2</div><div class="val">-2</div></div>
-            <div class="key-item"><div class="label">Key 3</div><div class="val">5</div></div>
-            <div class="key-item"><div class="label">Key 4</div><div class="val">25</div></div>
+            <div class="key-item"><div class="label">Key 1</div><div class="val">기울기와 절편 두 개</div></div>
+            <div class="key-item"><div class="label">Key 2</div><div class="val">기울기와 y절편</div></div>
+            <div class="key-item"><div class="label">Key 3</div><div class="val">교점의 좌표</div></div>
+            <div class="key-item"><div class="label">Key 4</div><div class="val">직사각형의 넓이</div></div>
         </div>
 
         <div class="input-group">
             <label for="ansFinal">⌨️ 최종 접속 패스워드 (Key 1~4를 순서대로 조합하여 입력):</label>
-            <input type="text" id="ansFinal" placeholder="예: 7-2525" autocomplete="off">
+            <input type="text" id="ansFinal" placeholder="예: 2-1234" autocomplete="off">
             <div id="errFinal" class="error-msg">❌ 접속 실패: 패스워드가 올바르지 않습니다. (예: 7-2525)</div>
         </div>
 
@@ -459,7 +461,7 @@
             <div class="record-badge" id="finalRecord">⏱️ 최종 탈출 기록: 00분 00초</div>
             
             <p style="color: var(--accent-color); font-weight: bold; margin-top: 15px;">
-                탈출 기록을 선생님께 제출하세요! 풀이 과정을 복습해야할지도? ㅎㅎ
+                모둠원의 탈출을 돕고 모두 탈출에 성공하면 기록을 선생님께 제출하세요~
             </p>
         </div>
     </div>
